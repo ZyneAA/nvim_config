@@ -20,6 +20,9 @@ return {
     },
   },
 
+  { "blink.cmp", enabled = false },
+
+  { "fzf-lua", enabled = false },
   -- change trouble config
   {
     "folke/trouble.nvim",
@@ -27,6 +30,7 @@ return {
     opts = { use_diagnostic_signs = true },
   },
 
+  { "folke/snacks.nvim", opts = { dashboard = { enabled = true } } },
   -- disable trouble
   { "folke/trouble.nvim", enabled = false },
 
