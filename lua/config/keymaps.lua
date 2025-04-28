@@ -4,8 +4,41 @@
 
 vim.g.mapleader = " "
 
+local function create_folder_in_current_dir()
+  local buf_path = vim.api.nvim_buf_get_name(0)
+  local dir = vim.fn.fnamemodify(buf_path, ":h")
+  vim.ui.input({ prompt = "Folder name: " }, function(folder_name)
+    if folder_name and #folder_name > 0 then
+      local path = dir .. "/" .. folder_name
+      vim.fn.mkdir(path, "p")
+      print("Created folder: " .. path)
+    else
+      print("No folder name given.")
+    end
+  end)
+end
+
+local function create_folder_custom_location()
+  vim.ui.input({ prompt = "Full folder path: " }, function(path)
+    if path and #path > 0 then
+      vim.fn.mkdir(path, "p")
+      print("Created folder: " .. path)
+    else
+      print("No path given.")
+    end
+  end)
+end
+
+vim.keymap.set("n", "<leader>ad", create_folder_in_current_dir, { desc = "Make folder in current file dir" })
+vim.keymap.set("n", "<leader>af", create_folder_custom_location, { desc = "Make folder in custom location" })
+
 -- This binds the LSP rename function to `<leader>rn`
-vim.api.nvim_set_keymap("n", "<leader>rn", ":lua vim.lsp.buf.rename()<CR>", { desc = "Replace every occurrence", noremap = true, silent = true })
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>rn",
+  ":lua vim.lsp.buf.rename()<CR>",
+  { desc = "Replace every occurrence", noremap = true, silent = true }
+)
 
 -- Delete current buffer and its respective file
 local function confirm_and_delete_buffer()
@@ -19,7 +52,7 @@ end
 vim.keymap.set("n", "<leader>rm", confirm_and_delete_buffer, { desc = "Delete current buffer and file" })
 
 -- Delete current buffer
-vim.keymap.set("n", "<leader>rb", function ()
+vim.keymap.set("n", "<leader>rr", function()
   vim.api.nvim_buf_delete(0, { force = true })
 end, { desc = "Delete current buffer" })
 
@@ -65,4 +98,3 @@ vim.keymap.set("n", "<leader>as", function()
   vim.cmd("edit " .. vim.fn.fnameescape(filepath))
   print("New file created: " .. filepath)
 end, { desc = "Create new file from path" })
-
