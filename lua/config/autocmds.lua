@@ -9,6 +9,14 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
+vim.filetype.add({
+  extension = {
+    reix = "js", -- your custom extension
+    wiggle = "markdown", -- etc
+  },
+})
+
+
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "python",
   callback = function()

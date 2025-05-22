@@ -3,25 +3,21 @@ return {
   event = "VeryLazy",
   opts = {
     options = {
-      -- this is all you need
       theme = "evangelion",
-
-      -- everything below
-      -- is extra style
-      -- can't help myself :P
       component_separators = { left = "░", right = "░" },
       section_separators = { left = "▓▒░", right = "░▒▓" },
     },
     sections = {
       lualine_b = {
-        "branch", {
+        "branch",
+        {
           "diagnostics",
           sources = { "nvim_diagnostic" },
           symbols = { error = " ", warn = " ", info = " " },
           diagnostics_color = {
             error = { fg = "#151515" },
-            warn =  { fg = "#151515" },
-            info =  { fg = "#151515" },
+            warn = { fg = "#151515" },
+            info = { fg = "#151515" },
           },
         },
       },
@@ -30,7 +26,7 @@ return {
         { "fileformat" },
         { "filetype" },
       },
-      lualine_y = { "searchcount", "progress" },
+      lualine_y = { "searchcount", "progress", "location" },
     },
   },
 }

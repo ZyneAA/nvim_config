@@ -56,6 +56,15 @@ vim.keymap.set("n", "<leader>rr", function()
   vim.api.nvim_buf_delete(0, { force = true })
 end, { desc = "Delete current buffer" })
 
+-- Nuke all the buffers
+vim.keymap.set("n", "<leader>ra", function()
+  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_is_loaded(bufnr) and vim.bo[bufnr].buflisted then
+      vim.api.nvim_buf_delete(bufnr, { force = true })
+    end
+  end
+end, { desc = "Rapture All Buffers" })
+
 -- New file and buffer at currently opened buffer's dir
 vim.keymap.set("n", "<leader>aa", function()
   local current_file = vim.api.nvim_buf_get_name(0)
@@ -98,3 +107,12 @@ vim.keymap.set("n", "<leader>as", function()
   vim.cmd("edit " .. vim.fn.fnameescape(filepath))
   print("New file created: " .. filepath)
 end, { desc = "Create new file from path" })
+
+-- Jumping to first error and first waring
+vim.keymap.set("n", "<Leader>mm", function()
+  vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
+end, { desc = "Jump to next error" })
+
+vim.keymap.set("n", "<Leader>m", function()
+  vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.WARN })
+end, { desc = "Jump to next warning" })
