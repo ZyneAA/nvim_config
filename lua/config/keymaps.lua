@@ -116,3 +116,8 @@ end, { desc = "Jump to next error" })
 vim.keymap.set("n", "<Leader>m", function()
   vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.WARN })
 end, { desc = "Jump to next warning" })
+
+-- Error pop-up
+vim.keymap.set("n", "<leader>se", function()
+  vim.diagnostic.open_float(nil, { focus = false })
+end, { desc = "Show diagnostic (error) in float" })

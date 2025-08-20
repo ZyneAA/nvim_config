@@ -11,11 +11,10 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 
 vim.filetype.add({
   extension = {
-    reix = "js", -- your custom extension
+    reix = "ts", -- your custom extension
     wiggle = "markdown", -- etc
   },
 })
-
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "python",
